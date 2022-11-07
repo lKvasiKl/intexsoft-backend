@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  intexsoft-slide-postgres:
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=pa55w0rd
+      - POSTGRES_DB=slidedb
