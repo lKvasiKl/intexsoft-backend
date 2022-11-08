@@ -5,7 +5,7 @@ const userService = require('./userService');
 
 const PASSWORD_SALT = process.env.PASSWORD_SALT;
 
-const register = async ({firstName, lastName, email, password}) => {
+const register = async ({email, password, firstName, lastName}) => {
     const candidate = userService.getByEmail(email);
     if(candidate) {
         //
