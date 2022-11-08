@@ -12,13 +12,17 @@ app.use(bodyParser.json());
 app.use("/api", router);
 
 const start = async () => {
-    try {
-        sequelize.authenticate().catch(err => console.log(err));
-        await sequelize.sync({force:true});
+    sequelize.authenticate().then(() => {
+        console.log('Database connected...')
+    }).catch(err => {
+        console.log(err)
+    });
+
+    await sequelize.sync({force: true}).then(() => {
         app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
-    } catch (err) {
+    }).catch(err => {
         console.log(err);
-    }
+    });
 };
 
 start();
