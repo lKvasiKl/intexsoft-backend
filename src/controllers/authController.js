@@ -1,20 +1,19 @@
 const authService = require('../services/authService');
 
 const register = async (req, res) => {
-    const {email, password, lastName, firstName} = req.body;
+    const {email, password} = req.body;
     if (!email || !password) {
-        res.status(400).send();
+        res.send("Data not full.");
     }
 
-    const result = await authService.register({email, password, lastName, firstName});
+    const result = await authService.register(req.body);
     if (result) {
         return res.status(201).json({result});
     }
 };
 
 const login = async (req, res) => {
-    const {email, password} = req.body;
-    const result = authService.login({email, password});
+    const result = await authService.login(req.body);
 
     if (result) {
         const {accessToken, refreshToken} = result;
@@ -22,10 +21,14 @@ const login = async (req, res) => {
     }
 };
 
-const refresh = async (req, res) => {
+const refresh = (req, res) => {
     const {refreshToken} = req.body;
-    const accessToken = authService.refresh({refreshToken});
-    return res.json({accessToken: accessToken});
+    const result = authService.refresh({refreshToken});
+
+    if (result) {
+        const {accessToken, refreshToken} = result;
+        return res.json({accessToken, refreshToken});
+    }
 };
 
 module.exports = {
