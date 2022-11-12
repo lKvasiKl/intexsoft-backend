@@ -1,5 +1,0 @@
-version: "3.8"
-services:
-  intexsoft-slide-postgres:
-    container_name: intexsoft-slide-postgres
-    image: "postgres:14.3"
