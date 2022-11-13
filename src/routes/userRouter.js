@@ -1,6 +1,11 @@
 const router = require('express').Router();
 const authMiddleware = require('../middlewares/checkAuth');
-const {getUser, getCurrentUser, updateCurrentUser, deleteCurrentUser} = require('../controllers/userController');
+const {
+    getUser,
+    getCurrentUser,
+    updateCurrentUser,
+    deleteCurrentUser
+} = require('../controllers/userController');
 
 router.get(
     "/:id",
