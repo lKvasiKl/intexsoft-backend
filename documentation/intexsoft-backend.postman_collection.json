@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "d3367eda-b9e9-4e6f-b2ee-50234a740aba",
+		"name": "intexsoft-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20036212"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kirill.vasko.2003@gmail.com\",\r\n    \"password\": \"pA55w0rd1\",\r\n    \"firstName\": \"Kirill\",\r\n    \"lastName\": \"Vasko\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/auth/register",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"kirill.vasko.2003@gmail.com\",\r\n    \"password\": \"pA55w0rd1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/auth/login",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refreshToken\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4MjczOTE2LCJleHAiOjE2Njg1MzMxMTZ9.QDAjbJERMjjn9uKTrsUDUUsmTSwBPLYNrd7CRMHnTRk\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/auth/refresh",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "currentUser",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4Mjg3ODAwLCJleHAiOjE2NjgyODg3MDB9.IOUAWZTzKKt4S8GA8-hvUJcO9A0hwd2805J1KEgpkyY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/user/",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCurrentUser",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4Mjg3ODAwLCJleHAiOjE2NjgyODg3MDB9.IOUAWZTzKKt4S8GA8-hvUJcO9A0hwd2805J1KEgpkyY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/user/",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCurrentUser",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY4Mjg4MTM4LCJleHAiOjE2NjgyODkwMzh9.gHlIljY5WAmRI--H8JpvaNp_wwqo-OTSYHbmRiO0YCY",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/user/",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{api}}/user/1",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "api",
+			"value": "http://localhost:3000/api",
+			"type": "string"
+		}
+	]
+}
