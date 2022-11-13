@@ -1,21 +1,31 @@
 const router = require('express').Router();
-const {register, login, refresh} = require('../controllers/authController');
-const authValidator = require('../validation/authValidator');
+const validateRequest = require('../middlewares/validateRequest');
+const {
+    registerSchema,
+    loginSchema,
+    refreshSchema
+} = require('../validation/authValidator');
+const {
+    register,
+    login,
+    refresh
+} = require('../controllers/authController');
 
 router.post(
     "/register",
-    authValidator.register,
+    validateRequest(registerSchema, "body"),
     register
 );
 
 router.post(
     "/login",
-    authValidator.login,
+    validateRequest(loginSchema, "body"),
     login
 );
 
 router.get(
     "/refresh",
+    validateRequest(refreshSchema, "body"),
     refresh
 );
 
