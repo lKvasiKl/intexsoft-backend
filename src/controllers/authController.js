@@ -1,34 +1,46 @@
 const authService = require('../services/authService');
 
-const register = async (req, res) => {
+const register = (req, res) => {
     const {email, password} = req.body;
     if (!email || !password) {
         res.send("Data not full.");
     }
 
-    const result = await authService.register(req.body);
-    if (result) {
-        return res.status(201).json({result});
-    }
+    authService
+        .register(req.body)
+        .then(() => res.status(201).send('Ok'))
+        .catch((e) => {
+            res.status(400).send(e)
+        });
 };
 
-const login = async (req, res) => {
-    const result = await authService.login(req.body);
-
-    if (result) {
-        const {accessToken, refreshToken} = result;
-        return res.json({accessToken, refreshToken});
+const login = (req, res) => {
+    const {email, password} = req.body;
+    if (!email || !password) {
+        res.send("Data not full.");
     }
+
+    authService
+        .login(req.body)
+        .then((tokensPair) => res.send(tokensPair))
+        .catch((e) => {
+            res.status(400).send(e.message);
+        });
 };
 
 const refresh = (req, res) => {
     const {refreshToken} = req.body;
-    const result = authService.refresh({refreshToken});
 
-    if (result) {
-        const {accessToken, refreshToken} = result;
-        return res.json({accessToken, refreshToken});
+    if (!refreshToken) {
+        res.status(400).send("Refresh token is required.");
     }
+
+    authService
+        .refresh({refreshToken})
+        .then((tokensPair) => res.send(tokensPair))
+        .catch((e) => {
+            res.send(e);
+        });
 };
 
 module.exports = {
