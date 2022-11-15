@@ -5,19 +5,34 @@ const {
 } = require('../constants/validationConstants');
 
 const registerSchema = Joi.object({
-        firstName: Joi.string(),
-        lastName: Joi.string(),
-        email: Joi.string().min(MIN_EMAIL_LENGTH).required().email(),
-        password: Joi.string().min(MIN_PASSWORD_LENGTH).required()
+    firstName: Joi.string(),
+
+    lastName: Joi.string(),
+
+    email: Joi.string()
+        .min(MIN_EMAIL_LENGTH)
+        .required()
+        .email(),
+
+    password: Joi.string()
+        .min(MIN_PASSWORD_LENGTH)
+        .required()
 });
 
 const loginSchema = Joi.object({
-    email: Joi.string().min(MIN_EMAIL_LENGTH).required().email(),
-    password: Joi.string().min(MIN_PASSWORD_LENGTH).required()
+    email: Joi.string()
+        .min(MIN_EMAIL_LENGTH)
+        .required()
+        .email(),
+
+    password: Joi.string()
+        .min(MIN_PASSWORD_LENGTH)
+        .required()
 });
 
 const refreshSchema = Joi.object({
-    refreshToken: Joi.string().required(),
+    refreshToken: Joi.string()
+        .required(),
 });
 
 module.exports = {
