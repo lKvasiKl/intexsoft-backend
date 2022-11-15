@@ -1,37 +1,56 @@
 const userService = require('../services/userService');
 const {removePassword} = require("../helpers/user");
 
-const getUser = async (req, res) => {
+const getUser = (req, res) => {
     const id = req.params.id;
-    const user = await userService.getById(id);
-    if (!user) {
-        return res.status(404).json({
-            message: `User with id ${id} not found.`
-        });
-    }
+    userService
+        .getById(id)
+        .then((user) => {
+            if (!user) {
+                res.status(404).json({
+                    message: `User with id ${id} not found.`
+                });
+            }
 
-    return res.json(removePassword(user));
+            res.json(removePassword(user));
+        })
+        .catch((e) => {
+            res.send(e);
+        });
 };
 
-const getCurrentUser = async (req, res) => {
+const getCurrentUser = (req, res) => {
     const id = req.userId;
-    const currentUser = await userService.getById(id);
-
-    return res.json(removePassword(currentUser));
+    userService
+        .getById(id)
+        .then((currentUser) => {
+            res.send(removePassword(currentUser));
+        })
+        .catch((e) => {
+            res.send(e);
+        });
 };
 
 const updateCurrentUser = async (req, res) => {
     const id = req.userId;
-    const updatedUser = await userService.update(id, req.body);
-
-    return res.json(removePassword(updatedUser));
+    userService
+        .update(id, req.body)
+        .then((updatedUser) => {
+            res.send(removePassword(updatedUser));
+        })
+        .catch((e) => {
+            res.send(e);
+        });
 };
 
 const deleteCurrentUser = async (req, res) => {
     const id = req.userId;
-    return await userService
+    userService
         .remove(id)
-        .then(() => res.status(204).send());
+        .then(() => res.status(204).send())
+        .catch((e) => {
+            res.send(e);
+        });
 }
 
 module.exports = {
