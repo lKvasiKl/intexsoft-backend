@@ -18,7 +18,7 @@ const createTokensPair = (userData) => {
     );
 
     const refreshToken = jwt.generate(
-        {},
+        {id},
         JWT_REFRESH_SECRET,
         {expiresIn: REFRESH_TOKEN_LIFETIME}
     )
@@ -40,6 +40,7 @@ const login = async (userData) => {
     if (!foundedUser) {
         throw new Error("User with this email doesn't exists.")
     }
+
     const isPasswordValid = crypt.compare(
         password,
         foundedUser.hashPassword
@@ -52,7 +53,7 @@ const login = async (userData) => {
     return createTokensPair(removePassword(foundedUser));
 };
 
-const refresh = ({refreshToken}) => {
+const refresh = async ({refreshToken}) => {
     const isValid = jwt.validate(refreshToken, JWT_REFRESH_SECRET);
 
     if (!isValid) {
