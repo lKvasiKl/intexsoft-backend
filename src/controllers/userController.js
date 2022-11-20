@@ -1,55 +1,46 @@
 const userService = require('../services/userService');
 const {removePassword} = require("../helpers/user");
 
-const getUser = (req, res) => {
-    const id = req.params.id;
-    userService
-        .getById(id)
-        .then((user) => {
-            if (!user) {
-                res.status(404).json({
-                    message: `User with id ${id} not found.`
-                });
-            }
 
-            res.json(removePassword(user));
+const getUser = (req, res) => {
+    userService
+        .getById(req.params.id)
+        .then((user) => {
+            res.send(removePassword(user));
         })
         .catch((e) => {
-            res.send(e);
+            res.status(404).send(e.message);
         });
 };
 
 const getCurrentUser = (req, res) => {
-    const id = req.userId;
     userService
-        .getById(id)
+        .getById(req.query.userId)
         .then((currentUser) => {
             res.send(removePassword(currentUser));
         })
         .catch((e) => {
-            res.send(e);
+            res.status(404).send(e.message);
         });
 };
 
 const updateCurrentUser = async (req, res) => {
-    const id = req.userId;
     userService
-        .update(id, req.body)
+        .update(req.query.userId, req.body)
         .then((updatedUser) => {
             res.send(removePassword(updatedUser));
         })
         .catch((e) => {
-            res.send(e);
+            res.status(400).send(e.message);
         });
 };
 
 const deleteCurrentUser = async (req, res) => {
-    const id = req.userId;
     userService
-        .remove(id)
+        .remove(req.query.userId)
         .then(() => res.status(204).send())
         .catch((e) => {
-            res.send(e);
+            res.status(400).send(e.message);
         });
 }
 
