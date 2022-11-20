@@ -6,31 +6,31 @@ const {removePassword} = require('../helpers/user')
 
 const JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET;
 const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET;
-const ACCESS_TOKEN_LIFETIME = process.env.ACCESS_TOKEN_LIFETIME;
-const REFRESH_TOKEN_LIFETIME = process.env.REFRESH_TOKEN_LIFETIME;
+const ACCESS_TOKEN_TTL = process.env.ACCESS_TOKEN_TTL;
+const REFRESH_TOKEN_TTL = process.env.REFRESH_TOKEN_TTL;
 
 const createTokensPair = (userData) => {
     const {id} = userData;
     const accessToken = jwt.generate(
         {id},
         JWT_ACCESS_SECRET,
-        {expiresIn: ACCESS_TOKEN_LIFETIME}
+        ACCESS_TOKEN_TTL
     );
 
     const refreshToken = jwt.generate(
         {id},
         JWT_REFRESH_SECRET,
-        {expiresIn: REFRESH_TOKEN_LIFETIME}
+        REFRESH_TOKEN_TTL
     )
 
     return {accessToken, refreshToken};
 }
 
-const register = async (userData) => {
+const register = (userData) => {
     return userService
         .create(userData)
-        .then((user) => removePassword(user))
-        .catch((e) => console.log(e));
+        .then((user) => createTokensPair(removePassword(user)))
+        .catch();
 };
 
 const login = async (userData) => {
@@ -61,8 +61,9 @@ const refresh = async ({refreshToken}) => {
     }
 
     const {id} = jwt.parse(refreshToken);
+    const userData = await userService.getById(id);
 
-    return createTokensPair({id});
+    return createTokensPair(userData);
 };
 
 module.exports = {
