@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const authMiddleware = require('../middlewares/checkAuth');
+
 const {
     getUser,
     getCurrentUser,
@@ -7,28 +7,9 @@ const {
     deleteCurrentUser
 } = require('../controllers/userController');
 
-router.get(
-    "/:id",
-    getUser
-);
-
-router.get(
-    "/",
-    authMiddleware,
-    getCurrentUser
-);
-
-router.patch(
-    "/",
-    authMiddleware,
-    updateCurrentUser
-);
-
-router.delete(
-    "/",
-    authMiddleware,
-    deleteCurrentUser
-);
-
+router.get("/:id", getUser);
+router.get("/", getCurrentUser);
+router.patch("/", updateCurrentUser);
+router.delete("/", deleteCurrentUser);
 
 module.exports = router;
