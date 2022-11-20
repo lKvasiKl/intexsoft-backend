@@ -1,32 +1,15 @@
 const router = require('express').Router();
-const validateRequest = require('../middlewares/validateRequest');
-const {
-    registerSchema,
-    loginSchema,
-    refreshSchema
-} = require('../validation/authValidator');
+const {celebrate} = require('celebrate');
+const authSchemas = require('../validation/authSchemas');
+
 const {
     register,
     login,
     refresh
 } = require('../controllers/authController');
 
-router.post(
-    "/register",
-    validateRequest(registerSchema, "body"),
-    register
-);
-
-router.post(
-    "/login",
-    validateRequest(loginSchema, "body"),
-    login
-);
-
-router.get(
-    "/refresh",
-    validateRequest(refreshSchema, "body"),
-    refresh
-);
+router.post("/register", celebrate(authSchemas.register), register);
+router.post("/login", celebrate(authSchemas.login), login);
+router.get("/refresh", celebrate(authSchemas.refresh), refresh);
 
 module.exports = router;
