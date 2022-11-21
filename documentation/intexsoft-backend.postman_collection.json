@@ -10,13 +10,13 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "register",
+					"name": "Register",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"kirill.vasko.2003@gmail.com\",\r\n    \"password\": \"pA55w0rd1\",\r\n    \"firstName\": \"Kirill\",\r\n    \"lastName\": \"Vasko\"\r\n}",
+							"raw": "{\r\n    \"email\": \"kirill.vasko@gmail.com\",\r\n    \"password\": \"pA55w0rd1\",\r\n    \"firstName\": \"Kirill\",\r\n    \"lastName\": \"Vasko\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -37,13 +37,13 @@
 					"response": []
 				},
 				{
-					"name": "login",
+					"name": "Login",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"kirill.vasko.2003@gmail.com\",\r\n    \"password\": \"pA55w0rd1\"\r\n}",
+							"raw": "{\r\n    \"email\": \"kirill.vasko@gmail.com\",\r\n    \"password\": \"pA55w0rd1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -64,7 +64,7 @@
 					"response": []
 				},
 				{
-					"name": "refresh",
+					"name": "Refresh",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -99,13 +99,13 @@
 			"name": "user",
 			"item": [
 				{
-					"name": "currentUser",
+					"name": "CurrentUser",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4Mjg3ODAwLCJleHAiOjE2NjgyODg3MDB9.IOUAWZTzKKt4S8GA8-hvUJcO9A0hwd2805J1KEgpkyY",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
@@ -123,19 +123,19 @@
 					"response": []
 				},
 				{
-					"name": "updateCurrentUser",
+					"name": "UpdateCurrentUser",
 					"request": {
 						"method": "PATCH",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY4Mjg3ODAwLCJleHAiOjE2NjgyODg3MDB9.IOUAWZTzKKt4S8GA8-hvUJcO9A0hwd2805J1KEgpkyY",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "",
+							"raw": "{\r\n    \"firstName\": \"Kirill\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -156,13 +156,13 @@
 					"response": []
 				},
 				{
-					"name": "deleteCurrentUser",
+					"name": "DeleteCurrentUser",
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNjY4Mjg4MTM4LCJleHAiOjE2NjgyODkwMzh9.gHlIljY5WAmRI--H8JpvaNp_wwqo-OTSYHbmRiO0YCY",
+								"value": "Bearer {{token}}",
 								"type": "text"
 							}
 						],
@@ -180,18 +180,24 @@
 					"response": []
 				},
 				{
-					"name": "userById",
+					"name": "UserById",
 					"request": {
 						"method": "GET",
-						"header": [],
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
-							"raw": "{{api}}/user/1",
+							"raw": "{{api}}/user/7",
 							"host": [
 								"{{api}}"
 							],
 							"path": [
 								"user",
-								"1"
+								"7"
 							]
 						}
 					},
@@ -224,6 +230,11 @@
 		{
 			"key": "api",
 			"value": "http://localhost:3000/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY5MDM1OTc0LCJleHAiOjE2NjkwMzY4NzR9.qz_1O7v_nUy3_0lOY_Atn-bowBx1bF_Ny1_dnlOgOWU",
 			"type": "string"
 		}
 	]
