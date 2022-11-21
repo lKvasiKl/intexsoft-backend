@@ -1,4 +1,5 @@
 const {Joi, Segments} = require('celebrate');
+
 const {
     MIN_EMAIL_LENGTH,
     MIN_PASSWORD_LENGTH
