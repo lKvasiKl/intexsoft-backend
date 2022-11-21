@@ -43,7 +43,7 @@ const update = async (id, userData) => {
     });
 };
 
-const remove = async id => {
+const remove = async (id) => {
     return await prisma.user.delete({
         where: {
             id: id
