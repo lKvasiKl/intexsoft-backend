@@ -20,8 +20,8 @@ const create = async (userData) => {
 
     const userToRegister = await getByEmail(email);
 
-    if (!userToRegister) {
-        return new Error("User with this email already exists.");
+    if (userToRegister) {
+        throw new Error("User with this email already exists.");
     }
 
     userData.hashPassword = crypt.hash(password);
