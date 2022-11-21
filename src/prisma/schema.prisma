@@ -9,11 +9,61 @@ datasource db {
 
 
 model User {
-  id Int @id @default(autoincrement())
-  email String @unique
-  hashPassword String
-  firstName String?
-  lastName String?
-  
-  avatarId Int?
+  id                Int             @id @default(autoincrement())
+  email             String          @unique
+  hashPassword      String
+  firstName         String?
+  lastName          String?
+  avatar            Image?          @relation(fields: [avatarId], references: [id])
+  avatarId          Int?            @unique
+  Post              Post[]
+  comment           Comment[]
+  likedPost         UsersLikedPosts[]
+}
+
+model Image {
+  id                Int             @id @default(autoincrement())
+  url               String          @unique
+  isExternal        Boolean
+  user              User?
+  posts             ImagesPosts[]
+}
+
+model Post {
+  id                Int             @id @default(autoincrement())
+  description       String?
+  createdAt         DateTime        @default(now())
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int
+  image             ImagesPosts[]
+  likedUsers        UsersLikedPosts[]
+  comments          Comment[]
+}
+
+model Comment {
+  id                Int             @id @default(autoincrement())
+  text              String
+  createdAt         DateTime        @default(now())
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int
+  post              Post            @relation(fields: [postId], references: [id])
+  postId            Int
+}
+
+model ImagesPosts {
+  image             Image           @relation(fields: [imageId], references: [id])
+  imageId           Int
+  post              Post            @relation(fields: [postId], references: [id])
+  postId            Int
+
+  @@id([imageId, postId])
+}
+
+model UsersLikedPosts {
+  user              User            @relation(fields: [userId], references: [id])
+  userId            Int
+  post              Post            @relation(fields: [postId], references: [id])
+  postId            Int
+
+  @@id([userId, postId])
 }
