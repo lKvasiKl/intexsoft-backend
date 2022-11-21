@@ -5,7 +5,7 @@ const register = (req, res) => {
         .register(req.body)
         .then((tokensPair) => res.status(201).send(tokensPair))
         .catch((e) => {
-            res.status(400).send(e);
+            res.status(400).send(e.message);
         });
 };
 
