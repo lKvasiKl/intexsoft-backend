@@ -26,7 +26,12 @@ const create = async (userData) => {
 
     userData.hashPassword = crypt.hash(password);
 
-    return userRepository.create(userData);
+    return userRepository.create({
+        email: email,
+        hashPassword: userData.hashPassword,
+        firstName: userData.firstName,
+        lastName: userData.lastName
+    });
 };
 
 const update = (id, userData) => {
@@ -36,7 +41,12 @@ const update = (id, userData) => {
         userData.hashPassword = crypt.hash(password);
     }
 
-    return userRepository.update(id, userData);
+    return userRepository.update(id, {
+        email: userData.email,
+        hashPassword: userData.hashPassword,
+        firstName: userData.firstName,
+        lastName: userData.lastName
+    });
 };
 
 const remove = (id) => {
