@@ -13,7 +13,7 @@ const create = (currentUserId, body) => {
 };
 
 const getPost = async (currentUserId, postId) => {
-    const foundedPost = getPostById(postId);
+    const foundedPost = await getPostById(postId);
 
     foundedPost.likesAmount = await likedPostService.getPostLikes(postId);
     foundedPost.isLiked = await likedPostService.isLikedPost(currentUserId, postId);
