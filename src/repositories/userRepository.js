@@ -16,30 +16,16 @@ const getById = async (id) => {
     });
 };
 
-const create = async (userData) => {
-    const {email, hashPassword, firstName, lastName} = userData;
-    return await prisma.user.create({
-        data: {
-            email: email,
-            hashPassword: hashPassword,
-            firstName: firstName,
-            lastName: lastName
-        }
-    });
+const create = async (data) => {
+    return await prisma.user.create({data});
 };
 
-const update = async (id, userData) => {
-    const {email, hashPassword, firstName, lastName} = userData;
+const update = async (id, data) => {
     return await prisma.user.update({
         where: {
             id: id
         },
-        data: {
-            email: email,
-            hashPassword: hashPassword,
-            firstName: firstName,
-            lastName: lastName
-        }
+        data
     });
 };
 
