@@ -1,4 +1,4 @@
-# intexsoft-backend #
+# Intexsoft-backend #
 Intexsoft practical task. Web API for working with images. 
 Authentication in the application is carried out through a bearer token.
 Database: postgresql.
@@ -20,8 +20,8 @@ Database: postgresql.
     ```
     DATABASE_URL where:
     
-    `user` - your_username
-    `password` - your_password
+    `user` - your_username<br/>
+    `password` - your_password<br/>
     `db_name` - your_db_name
     
 # Project start instructions #
