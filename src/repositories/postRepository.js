@@ -22,25 +22,25 @@ const remove = (id) => {
     });
 };
 
-const findOne =  (filter) => {
+const findOne = (filter) => {
     return prisma.post.findUnique({
-            where: {
-                ...filter
+        where: {
+            ...filter
+        },
+        include: {
+            author: {
+                select: {
+                    avatar: true,
+                    firstName: true
+                }
             },
-            include: {
-                author: {
-                    select: {
-                        avatar: true,
-                        firstName: true
-                    }
-                },
-                user: {
-                    select: {
-                        id: true
-                    }
+            user: {
+                select: {
+                    id: true
                 }
             }
-        });
+        }
+    });
 };
 
 const findMany = (filter, page) => {
