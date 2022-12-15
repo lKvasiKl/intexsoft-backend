@@ -24,24 +24,16 @@ Database: postgresql.
     `db_name` - your_db_name
     
 # Project start instructions #
-### Clone the project:
-    ```
+### Clone the project
     git clone --branch develop https://github.com/lKvasiKl/intexsoft-backend.git
-    ```
 
 ### Create and launch docker container (you can set your own configuration in docker-compose.yaml file)
 In the `docker-compose.yaml` location directory, run this comand:
-    ```
     docker-compose up -d
-    ```
     
 ### Apply migrations for database
 In the `schema.prisma` location directory, run this comand:
-    ```
     npx prisma migrate dev
-    ```
 
 ### Run server
-    ```
     npm start
-    ```
