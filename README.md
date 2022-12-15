@@ -13,12 +13,16 @@ Database: postgresql.
     JWT_ACCESS_SECRET = your_secret_for_access_token
     JWT_REFRESH_SECRET = your_secret_for_refresh_token
 
-    DATABASE_URL="postgresql://`user`:`password`@localhost:5432/`db_name`?schema=public"
+    DATABASE_URL="postgresql://user:password@localhost:5432/db_name?schema=public"
 
     ACCESS_TOKEN_TTL = your_ttl_time_for_acces_token
     REFRESH_TOKEN_TTL = your_ttl_time_for_refresh_token
     ```
-
+    DATABASE_URL where:
+    `user` - your_username
+    `password` - your_password
+    `db_name` - your_db_name
+    
 # Project start instructions #
 ### Clone the project
     ```
