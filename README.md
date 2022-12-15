@@ -1,6 +1,6 @@
 # Intexsoft-backend #
-Intexsoft practical task. Web API for working with images. 
-Authentication in the application is carried out through a bearer token.
+Intexsoft practical task. Web API for working with images.<br/>
+Authentication in the application is carried out through a bearer token.<br/>
 Database: postgresql.
 
 # Requirements #
