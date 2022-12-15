@@ -1,24 +1,12 @@
 const commentRepository = require('../repositories/commentRepository');
-const postService = require('../services/postService');
 
-const create = async (currentUserId, postId, body) => {
-    await postService.getPostById(postId);
-
+const create = (currentUserId, postId, body) => {
     return commentRepository
         .create({
             userId: currentUserId,
-            postId: +postId,
-            text: body.text,
-            createdAt: new Date()
+            postId: postId,
+            text: body.text
         })
-        .catch();
-};
-
-const getPostComments = async (postId) => {
-    await postService.getPostById(postId);
-
-    return commentRepository
-        .getPostComments(postId)
         .catch();
 };
 
@@ -47,11 +35,18 @@ const remove = async (commentId, currentUserId) => {
     }
 
     return commentRepository.remove(commentId);
-}
+};
+
+const getPostComments = async (postId) => {
+
+    return commentRepository
+        .getPostComments(postId)
+        .catch();
+};
 
 module.exports = {
     create,
-    getPostComments,
     update,
-    remove
+    remove,
+    getPostComments
 }

@@ -242,9 +242,9 @@
 					"response": []
 				},
 				{
-					"name": "PostById",
+					"name": "GetPostByFilter",
 					"request": {
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Authorization",
@@ -252,86 +252,15 @@
 								"type": "text"
 							}
 						],
-						"url": {
-							"raw": "{{api}}/post/3",
-							"host": [
-								"{{api}}"
-							],
-							"path": [
-								"post",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "AllPosts",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{api}}/post/all",
-							"host": [
-								"{{api}}"
-							],
-							"path": [
-								"post",
-								"all"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "UserPosts",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "{{api}}/post/user/1",
-							"host": [
-								"{{api}}"
-							],
-							"path": [
-								"post",
-								"user",
-								"1"
-							],
-							"query": [
-								{
-									"key": "",
-									"value": "",
-									"disabled": true
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"filter\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "CurrentUserPosts",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
 							}
-						],
+						},
 						"url": {
 							"raw": "{{api}}/post/",
 							"host": [
@@ -379,6 +308,30 @@
 					"response": []
 				},
 				{
+					"name": "LikePost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{api}}/post/5",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"post",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "DeletePost",
 					"request": {
 						"method": "DELETE",
@@ -405,10 +358,10 @@
 			]
 		},
 		{
-			"name": "like",
+			"name": "posts",
 			"item": [
 				{
-					"name": "AddLikeToPost",
+					"name": "GetPosts",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -418,23 +371,106 @@
 								"type": "text"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"filter\": {\r\n        \"id\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{api}}/like/3",
+							"raw": "{{api}}/post/all",
 							"host": [
 								"{{api}}"
 							],
 							"path": [
-								"like",
-								"3"
+								"post",
+								"all"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "DeleteLikeFromPost",
+					"name": "GetUserPosts",
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"filter\": {\r\n    },\r\n    \"pagination\": {\r\n        \"page\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/post/user/1",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"post",
+								"user",
+								"1"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCurrentUserPosts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pagination\": {\r\n        \"page\": 1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{api}}/posts/",
+							"host": [
+								"{{api}}"
+							],
+							"path": [
+								"posts",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AllCurrentUserPosts",
+					"request": {
+						"method": "GET",
 						"header": [
 							{
 								"key": "Authorization",
@@ -443,13 +479,13 @@
 							}
 						],
 						"url": {
-							"raw": "{{api}}/like/3",
+							"raw": "{{api}}/posts/",
 							"host": [
 								"{{api}}"
 							],
 							"path": [
-								"like",
-								"3"
+								"posts",
+								""
 							]
 						}
 					},
@@ -494,7 +530,7 @@
 					"response": []
 				},
 				{
-					"name": "PoctComments",
+					"name": "PostComments",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -538,13 +574,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{api}}/comment/2",
+							"raw": "{{api}}/comment/1",
 							"host": [
 								"{{api}}"
 							],
 							"path": [
 								"comment",
-								"2"
+								"1"
 							]
 						}
 					},
@@ -600,12 +636,12 @@
 	"variable": [
 		{
 			"key": "api",
-			"value": "http://localhost:3000/api",
+			"value": "http://localhost:4000/api",
 			"type": "string"
 		},
 		{
 			"key": "token",
-			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjY5MTA1MDc2LCJleHAiOjE2NjkxMDU5NzZ9.nbwBEkXmhWZ3SVWjqGCSqMAq98mG-gg6Ue0lP3a-nXk",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjcwOTQ0NjE1LCJleHAiOjE2NzA5NDU1MTV9.AHFY0kUDWdSKQu9b4sCWg9Ms18g8U8dsZVvHikrgXLY",
 			"type": "string"
 		}
 	]

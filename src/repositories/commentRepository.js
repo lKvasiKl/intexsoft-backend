@@ -1,27 +1,27 @@
 const prisma = require('../prisma/feed');
 
-const create = async (data) => {
-    return await prisma.comment.create({data});
+const create = (data) => {
+    return prisma.comment.create({data});
 };
 
-const getPostComments = async (postId) => {
-    return await prisma.comment.findMany({
+const getPostComments = (postId) => {
+    return prisma.comment.findMany({
         where: {
             postId: +postId,
         }
     });
 };
 
-const getCommentById = async (id) => {
-    return await prisma.comment.findUnique({
+const getCommentById = (id) => {
+    return prisma.comment.findUnique({
         where: {
             id: +id,
         }
     });
 };
 
-const update = async (id, data) => {
-    return await prisma.comment.update({
+const update = (id, data) => {
+    return prisma.comment.update({
         where: {
             id: +id,
         },
@@ -29,8 +29,8 @@ const update = async (id, data) => {
     });
 };
 
-const remove = async (id) => {
-    return await prisma.comment.delete({
+const remove = (id) => {
+    return prisma.comment.delete({
         where: {
             id: +id,
         }

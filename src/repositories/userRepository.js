@@ -1,27 +1,27 @@
 const prisma = require('../prisma/feed');
 
-const getByEmail = async (email) => {
-    return await prisma.user.findUnique({
+const getByEmail = (email) => {
+    return prisma.user.findUnique({
         where: {
             email: email
         }
     });
 };
 
-const getById = async (id) => {
-    return await prisma.user.findUnique({
+const getById = (id) => {
+    return prisma.user.findUnique({
         where: {
             id: +id
         }
     });
 };
 
-const create = async (data) => {
-    return await prisma.user.create({data});
+const create = (data) => {
+    return prisma.user.create({data});
 };
 
-const update = async (id, data) => {
-    return await prisma.user.update({
+const update = (id, data) => {
+    return prisma.user.update({
         where: {
             id: id
         },
@@ -29,8 +29,8 @@ const update = async (id, data) => {
     });
 };
 
-const remove = async (id) => {
-    return await prisma.user.delete({
+const remove = (id) => {
+    return prisma.user.delete({
         where: {
             id: id
         }

@@ -1,56 +1,12 @@
 const prisma = require('../prisma/feed');
+const {paginationFromPage} = require('../helpers/prisma');
 
-const create = async (data) => {
-    return await prisma.post.create({data});
+const create = (data) => {
+    return prisma.post.create({data});
 };
 
-const getById = async (postId) => {
-    return await prisma.post.findUnique({
-        where: {
-            id: +postId
-        },
-        include: {
-            user: {
-                select: {
-                    avatar: true
-                }
-            },
-            image: true
-        }
-    });
-};
-
-const getAll = async () => {
-    return await prisma.post.findMany({
-        include: {
-            user: {
-                select: {
-                    avatar: true
-                }
-            },
-            image: true
-        }
-    });
-};
-
-const getUserPosts = async (userId) => {
-    return await prisma.post.findMany({
-        where: {
-            userId: +userId
-        },
-        include: {
-            user: {
-                select: {
-                    avatar: true
-                }
-            },
-            image: true
-        }
-    });
-};
-
-const update = async (id, data) => {
-    return await prisma.post.update({
+const update = (id, data) => {
+    return prisma.post.update({
         where: {
             id: +id
         },
@@ -58,20 +14,78 @@ const update = async (id, data) => {
     });
 };
 
-const remove = async (id) => {
-    return await prisma.post.delete({
+const remove = (id) => {
+    return prisma.post.delete({
         where: {
             id: +id
         }
     });
 };
 
+const findOne =  (filter) => {
+    return prisma.post.findUnique({
+            where: {
+                ...filter
+            },
+            include: {
+                author: {
+                    select: {
+                        avatar: true,
+                        firstName: true
+                    }
+                },
+                user: {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        });
+};
+
+const findMany = (filter, page) => {
+    return prisma.post.findMany({
+        where: {
+            ...filter
+        },
+        include: {
+            author: {
+                select: {
+                    avatar: true,
+                    firstName: true
+                }
+            },
+            user: {
+                select: {
+                    id: true
+                }
+            }
+        },
+        ...paginationFromPage(page)
+    })
+};
+
+const findAll = (filter) => {
+    return prisma.post.findMany({
+        where: {
+            ...filter
+        }
+    });
+};
+
+const count = (filter) => {
+    return prisma.post.count({
+        where: {...filter}
+    });
+};
+
 
 module.exports = {
     create,
-    getById,
-    getAll,
-    getUserPosts,
     update,
-    remove
+    remove,
+    findOne,
+    findMany,
+    findAll,
+    count
 }

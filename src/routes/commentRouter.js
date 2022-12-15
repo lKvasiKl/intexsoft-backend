@@ -3,15 +3,15 @@ const {celebrate} = require('celebrate');
 const commentSchemas = require('../validation/commentSchemas');
 
 const {
-    createComment,
-    getPostComments,
+    create,
     update,
-    removeComment
+    remove,
+    getPostComments
 } = require('../controllers/commentController');
 
-router.post("/:postId", celebrate(commentSchemas.createComment), createComment);
+router.post("/:postId", celebrate(commentSchemas.createComment), create);
 router.get("/:postId", getPostComments);
 router.patch("/:id", update);
-router.delete("/:id", removeComment);
+router.delete("/:id", remove);
 
 module.exports = router;

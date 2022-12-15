@@ -12,7 +12,9 @@ const register = (req, res) => {
 const login = (req, res) => {
     authService
         .login(req.body)
-        .then((tokensPair) => res.send(tokensPair))
+        .then((tokensPair) => {
+            res.send(tokensPair)
+        })
         .catch((e) => {
             res.status(400).send(e.message);
         });

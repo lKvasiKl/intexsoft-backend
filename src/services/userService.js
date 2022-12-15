@@ -1,5 +1,6 @@
 const userRepository = require('../repositories/userRepository');
 const crypt = require('../helpers/crypt');
+const {createIdConnect} = require('../helpers/prisma');
 
 const getByEmail = (email) => {
     return userRepository.getByEmail(email);
@@ -45,7 +46,8 @@ const update = (id, userData) => {
         email: userData.email,
         hashPassword: userData.hashPassword,
         firstName: userData.firstName,
-        lastName: userData.lastName
+        lastName: userData.lastName,
+        post: {...createIdConnect(userData.postId)}
     });
 };
 

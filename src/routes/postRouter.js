@@ -3,21 +3,17 @@ const {celebrate} = require('celebrate');
 const postSchemas = require('../validation/postSchemas');
 
 const {
-    createPost,
-    getPost,
-    getAllPosts,
-    getUserPosts,
-    getCurrentUserPosts,
+    create,
     update,
-    deletePost
+    remove,
+    getPost,
+    like
 } = require('../controllers/postController');
 
-router.post("/create", celebrate(postSchemas.createPost), createPost);
-router.get("/all", getAllPosts);
-router.get("/:id", getPost);
-router.get("/user/:id", getUserPosts);
-router.get("/", getCurrentUserPosts);
-router.patch("/:id", update)
-router.delete("/:id", deletePost)
+router.post("/create", celebrate(postSchemas.createPost), create);
+router.post("/", getPost);
+router.patch("/:id", update);
+router.delete("/:id", remove);
+router.put("/:id", like);
 
 module.exports = router;

@@ -11,13 +11,10 @@ const register = {
             .min(MIN_EMAIL_LENGTH)
             .required()
             .email(),
-
         password: Joi.string()
             .min(MIN_PASSWORD_LENGTH)
             .required(),
-
         firstName: Joi.string(),
-
         lastName: Joi.string()
     })
 };
@@ -28,7 +25,6 @@ const login = {
             .min(MIN_EMAIL_LENGTH)
             .required()
             .email(),
-
         password: Joi.string()
             .min(MIN_PASSWORD_LENGTH)
             .required()

@@ -3,11 +3,13 @@ const express = require('express');
 const {errors} = require('celebrate');
 const bodyParser = require('body-parser');
 const router = require('./routes/index');
+const cors = require('cors');
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 app.use("/api", router);
 app.use(errors());
 

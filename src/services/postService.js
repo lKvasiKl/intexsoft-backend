@@ -1,105 +1,97 @@
 const postRepository = require('../repositories/postRepository');
-const likedPostService = require('../services/likedPostService');
-const userService = require('../services/userService');
+const {createIdConnect, removeIdConnect} = require('../helpers/prisma');
 
 const create = (currentUserId, body) => {
     return postRepository
         .create({
-            userId: currentUserId,
-            description: body.description,
-            createdAt: new Date()
+            author: createIdConnect(currentUserId),
+            description: body.description
         })
         .catch();
 };
 
-const getPost = async (currentUserId, postId) => {
-    const foundedPost = await getPostById(postId);
+const update = async (currentUserId, id, body) => {
+    const foundedPost = await getPost({id});
 
-    foundedPost.likesAmount = await likedPostService.getPostLikes(postId);
-    foundedPost.isLiked = await likedPostService.isLikedPost(currentUserId, postId);
-
-    return foundedPost;
-};
-
-const getPostById = async (postId) => {
-    const foundedPost = await postRepository.getById(postId);
-
-    if (!foundedPost) {
-        throw new Error(`Post with id ${postId} doesn't exists.`)
-    }
-
-    return foundedPost;
-};
-
-const getAllPosts = async (currentUserId) => {
-    const foundedPosts = await postRepository.getAll();
-
-    for (const post of foundedPosts) {
-        post.likesAmount = await likedPostService.getPostLikes(post.id);
-        post.isLiked = await likedPostService.isLikedPost(currentUserId, post.id);
-    }
-
-    return foundedPosts;
-};
-
-const getUserPosts = async (userId, currentUserId) => {
-    await userService.getById(userId);
-
-    const foundedPosts = await postRepository.getUserPosts(userId);
-
-    for (const post of foundedPosts) {
-        post.likesAmount = await likedPostService.getPostLikes(post.id);
-        post.isLiked = await likedPostService.isLikedPost(currentUserId, post.id);
-    }
-
-    return foundedPosts;
-};
-
-const getCurrentUserPosts = async (currentUserId) => {
-    const foundedPosts = await postRepository.getUserPosts(currentUserId);
-
-    for (const post of foundedPosts) {
-        post.likesAmount = await likedPostService.getPostLikes(post.id);
-        post.isLiked = await likedPostService.isLikedPost(currentUserId, post.id);
-    }
-
-    return foundedPosts;
-};
-
-const update = async (currentUserId, postId, body) => {
-    const foundedPost = await postRepository.getById(postId);
-
-    if (foundedPost?.userId !== currentUserId) {
+    if (foundedPost?.authorId !== currentUserId) {
         throw new Error('Access denied!');
     }
 
     return postRepository
         .update(
-            postId, {
-            userId: currentUserId,
-            description: body.description,
-            createdAt: body.createdAt
-        })
+            id, {
+                authorId: currentUserId,
+                description: body.description,
+                createdAt: body.createdAt
+            })
         .catch()
 }
 
-const remove = async (postId, currentUserId) => {
-    const foundedPost = await postRepository.getById(postId);
+const remove = async (id, currentUserId) => {
+    const foundedPost = await getPost({id});
 
-    if (foundedPost?.userId !== currentUserId) {
+    if (foundedPost?.authorId !== currentUserId) {
         throw new Error('Access denied!');
     }
 
-    return postRepository.remove(postId);
+    return postRepository.remove(id);
+};
+
+const getPost = async (filter) => {
+    const foundedPost = await postRepository.findOne(filter);
+
+    if (!foundedPost) {
+        throw new Error('Post with such parameters is not found.')
+    }
+
+    return foundedPost;
+};
+
+const getPosts = async (filter, page) => {
+    return ({
+        count: await postRepository.count(filter),
+        data: await postRepository.findMany(filter, page)
+    });
+};
+
+const getPostsByUser = async (authorId, page) => {
+    return ({
+        count: await postRepository.count({authorId}),
+        data: await postRepository.findMany({authorId}, page)
+    });
+};
+
+const getAllCurrentUserPosts = (authorId) => {
+    return postRepository.findAll({authorId});
+};
+
+const like = async (id, currentUserId) => {
+    const foundedPost = await getPost({id});
+
+    for (let user = 0; foundedPost.user.length; user++) {
+        if (foundedPost.user[user].id === currentUserId) {
+            return postRepository.update(
+                id, {
+                    user: removeIdConnect(currentUserId)
+                }
+            );
+        }
+    }
+
+    return postRepository.update(
+        id, {
+            user: createIdConnect(currentUserId)
+        }
+    );
 };
 
 module.exports = {
     create,
-    getPost,
-    getPostById,
-    getAllPosts,
-    getUserPosts,
-    getCurrentUserPosts,
     update,
-    remove
+    remove,
+    getPost,
+    getPosts,
+    getPostsByUser,
+    getAllCurrentUserPosts,
+    like
 }

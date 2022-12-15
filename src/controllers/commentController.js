@@ -1,8 +1,8 @@
 const commentService = require('../services/commentService');
 
-const createComment = (req, res) => {
+const create = (req, res) => {
     commentService
-        .create(req.query.userId, req.params['postId'], req.body)
+        .create(req.query.userId, +req.params.postId, req.body)
         .then((comment) => res.status(201).send(comment))
         .catch((e) => {
             res.status(400).send(e.message);
@@ -11,7 +11,7 @@ const createComment = (req, res) => {
 
 const getPostComments = (req, res) => {
     commentService
-        .getPostComments(req.params['postId'])
+        .getPostComments(req.params.postId)
         .then((comment) => res.status(201).send(comment))
         .catch((e) => {
             res.status(400).send(e.message);
@@ -20,16 +20,16 @@ const getPostComments = (req, res) => {
 
 const update = (req, res) => {
     commentService
-        .update(req.query.userId, req.params['id'], req.body)
+        .update(req.query.userId, req.params.id, req.body)
         .then((comment) => res.status(201).send(comment))
         .catch((e) => {
             res.status(400).send(e.message);
         });
 };
 
-const removeComment = (req, res) => {
+const remove = (req, res) => {
     commentService
-        .remove(req.params['id'], req.query.userId)
+        .remove(req.params.id, req.query.userId)
         .then(() => res.status(204).send())
         .catch((e) => {
             res.status(400).send(e.message);
@@ -37,8 +37,8 @@ const removeComment = (req, res) => {
 };
 
 module.exports = {
-    createComment,
+    create,
     getPostComments,
     update,
-    removeComment
+    remove
 }
