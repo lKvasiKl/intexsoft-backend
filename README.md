@@ -20,7 +20,9 @@ Database: postgresql.
     ```
     DATABASE_URL where:
     `user` - your_username
+    
     `password` - your_password
+    
     `db_name` - your_db_name
     
 # Project start instructions #
@@ -29,11 +31,17 @@ Database: postgresql.
 
 ### Create and launch docker container (you can set your own configuration in docker-compose.yaml file)
 In the `docker-compose.yaml` location directory, run this comand:
+
+    ```
     docker-compose up -d
+    ```
     
 ### Apply migrations for database
 In the `schema.prisma` location directory, run this comand:
+
+    ```
     npx prisma migrate dev
+    ```
 
 ### Run server
     npm start
