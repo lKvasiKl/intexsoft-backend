@@ -18,8 +18,7 @@ Database: postgresql.
     ACCESS_TOKEN_TTL = your_ttl_time_for_acces_token
     REFRESH_TOKEN_TTL = your_ttl_time_for_refresh_token
     ```
-    DATABASE_URL where:
-    
+    __DATABASE_URL__ where:<br/>
     `user` - your_username<br/>
     `password` - your_password<br/>
     `db_name` - your_db_name
