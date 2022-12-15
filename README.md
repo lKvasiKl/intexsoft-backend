@@ -24,7 +24,7 @@ Database: postgresql.
     `db_name` - your_db_name
     
 # Project start instructions #
-### Clone the project
+### Clone the project:
     ```
     git clone --branch develop https://github.com/lKvasiKl/intexsoft-backend.git
     ```
