@@ -8,6 +8,7 @@ Database: postgresql.
 + Npm v8.19.2;
 + Docker v20.10.17 and docker-compose v1.29.2
 + `.env` file in root project directory, which must contain port, secret key for tokens generatin, TTL for tokens and database url, like this:
+
     ```
     PORT = your_server_port
     JWT_ACCESS_SECRET = your_secret_for_access_token
