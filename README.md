@@ -1,6 +1,6 @@
 # Intexsoft-backend #
 Intexsoft practical task. Web API for working with posts (like Instagram).<br/>
-Authentication in the application is carried out through a bearer token.<br/>
+Authentication in the application is carried out through a Bearer token.<br/>
 Database: postgresql.
 
 # Requirements #
