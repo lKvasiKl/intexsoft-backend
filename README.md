@@ -16,7 +16,7 @@ Database: postgresql.
 
     DATABASE_URL="postgresql://user:password@localhost:port/db_name?schema=public"
 
-    ACCESS_TOKEN_TTL = your_ttl_time_for_acces_token
+    ACCESS_TOKEN_TTL = your_ttl_time_for_access_token
     REFRESH_TOKEN_TTL = your_ttl_time_for_refresh_token
     ```
     __DATABASE_URL__ where:<br/>
