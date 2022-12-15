@@ -13,7 +13,7 @@ Database: postgresql.
     JWT_ACCESS_SECRET = your_secret_for_access_token
     JWT_REFRESH_SECRET = your_secret_for_refresh_token
 
-    DATABASE_URL="postgresql://__user__:__password__@localhost:5432/__db_name__?schema=public"
+    DATABASE_URL="postgresql://`user`:`password`@localhost:5432/`db_name`?schema=public"
 
     ACCESS_TOKEN_TTL = your_ttl_time_for_acces_token
     REFRESH_TOKEN_TTL = your_ttl_time_for_refresh_token
